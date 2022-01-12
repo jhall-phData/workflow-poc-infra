@@ -1,3 +1,9 @@
 azure_infrastructure/terraform.*
 azure_infrastructure/.terraform*
 
+**/.terraform/*
+
+*.tfstate
+*.tfstate.*
+
+*.tfvars
