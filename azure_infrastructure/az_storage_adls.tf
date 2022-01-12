@@ -13,8 +13,8 @@ resource "azurerm_storage_account" "eqrdp" {
   account_tier             = "Standard"
   account_kind             = "StorageV2"
   account_replication_type = "LRS"
-  is_hns_enabled = true
-  min_tls_version = "TLS1_2"
+  is_hns_enabled           = true
+  min_tls_version          = "TLS1_2"
 }
 
 data "azurerm_client_config" "current" {}

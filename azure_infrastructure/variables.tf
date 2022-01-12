@@ -14,13 +14,13 @@ variable "env" {
 }
 
 variable "workflow-poc-sp-client-id" {
-  descrdescription = "service principle client id"
+  description = "service principle client id"
 }
 
 variable "workflow-poc-sp-tenant-id" {
-  descrdescription = "service principle tenant id"
+  description = "service principle tenant id"
 }
 
 variable "workflow-poc-sp-secret" {
-  descrdescription = "service principle secret"
+  description = "service principle secret"
 }
