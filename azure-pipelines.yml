@@ -11,6 +11,18 @@ resources:
   - repository: self
     type: git
     ref: refs/heads/main
+
+variables:
+- group: "workflow-poc-kv001"
+- name: vartfazstg-key1
+  value: $[variables.tfazstg-key1]
+- name: varworkflow-poc-sp-client-id
+  value: $[variables.workflow-poc-sp-client-id]
+- name: varworkflow-poc-sp-tenant-id
+  value: $[variables.workflow-poc-sp-tenant-id]
+- name: varworkflow-poc-sp-secret
+  value: $[variables.workflow-poc-sp-secret]  
+
 jobs:
 - job: Job_1
   displayName: Terraform Plan
@@ -28,8 +40,10 @@ jobs:
     inputs:
       script: |
         echo $ARM_ACCESS_KEY
-        terraform init -backend-config="access_key=${tfazstg-key1}"
+        terraform init -backend-config="access_key=${vartfazstg-key1}"
       workingDirectory: azure_infrastructure
+    env:
+      ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
   - task: CmdLine@2
     displayName: Terrafrom validate
     inputs:
@@ -38,7 +52,7 @@ jobs:
   - task: CmdLine@2
     displayName: Terrafrom plan
     inputs:
-      script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(workflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(workflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(workflow-poc-sp-tenant-id)"
+      script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(varworkflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(varworkflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(varworkflow-poc-sp-tenant-id)"
       workingDirectory: azure_infrastructure
   - task: ArchiveFiles@2
     displayName: Archive Terraform Plan
