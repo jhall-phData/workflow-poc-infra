@@ -15,7 +15,7 @@ resources:
 
 variables:
 - group: "workflow-poc-kv001"
-- name: vartfazstg-key1
+- name: vartfazstgkey1
   value: $[variables.tfazstg-key1]
 - name: varworkflow-poc-sp-client-id
   value: $[variables.workflow-poc-sp-client-id]
@@ -41,7 +41,7 @@ jobs:
     inputs:
       script: |
         echo $ARM_ACCESS_KEY
-        terraform init -backend-config="access_key=${vartfazstg-key1}"
+        terraform init -backend-config="access_key=${vartfazstgkey1}"
       workingDirectory: azure_infrastructure
     env:
       ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
