@@ -4,5 +4,6 @@ terraform {
     storage_account_name = "workflowpoc"
     container_name       = "tf-state"
     key                  = "workflow-poc-infra.tfstate"
+    access_key = var.storage-key
   }
 }
