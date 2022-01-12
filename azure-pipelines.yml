@@ -1,16 +1,53 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+# Variable Group 'workflow-poc-kv001' was defined in the Variables tab
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - azure-terraform/
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: refs/heads/main
+jobs:
+- job: Job_1
+  displayName: Terraform Plan
+  pool:
+    vmImage: ubuntu-18.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: TerraformInstaller@0
+    displayName: Install Terraform 1.1.1
+    inputs:
+      terraformVersion: 1.1.1
+  - task: CmdLine@2
+    displayName: Terrafirm init
+    inputs:
+      script: |
+        echo $ARM_ACCESS_KEY
+        terraform init -backend-config="access_key=${tfazstg-key1}"
+      workingDirectory: azure_infrastructure
+  - task: CmdLine@2
+    displayName: Terrafrom validate
+    inputs:
+      script: terraform validate
+      workingDirectory: azure_infrastructure
+  - task: CmdLine@2
+    displayName: Terrafrom plan
+    inputs:
+      script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(workflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(workflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(workflow-poc-sp-tenant-id)"
+      workingDirectory: azure_infrastructure
+  - task: ArchiveFiles@2
+    displayName: Archive Terraform Plan
+    inputs:
+      rootFolderOrFile: azure_infrastructure
+      archiveType: tar
+      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-tfplan.tgz
+  - task: PublishPipelineArtifact@1
+    displayName: Publish Terraform Plan
+    inputs:
+      path: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-tfplan.tgz
+      artifactName: $(Build.BuildId)-tfplan.tgz
