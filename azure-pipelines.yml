@@ -1,5 +1,7 @@
 # Variable Group 'workflow-poc-kv001' was defined in the Variables tab
-
+variables:
+  - name: notsecret
+    value: "not so secret"
   
 trigger:
   branches:
@@ -37,7 +39,9 @@ jobs:
     inputs:
       script: |
         echo $ARM_ACCESS_KEY
-        terraform init -backend-config="access_key=${tfazstgkey1}"
+        echo ${{tfazstg-key1}}
+        echo ${{variables.notsecret}}
+        terraform init -backend-config="access_key=${tfazstg-key1}"
       workingDirectory: azure_infrastructure
     env:
       ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
