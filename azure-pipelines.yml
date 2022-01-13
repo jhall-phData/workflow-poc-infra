@@ -1,14 +1,14 @@
 # Variable Group 'workflow-poc-kv001' was defined in the Variables tab
-variables:
-- group: "workflow-poc-kv001"
-- name: vartfazstgkey1
-  value: $[variables.tfazstg-key1]
-- name: varworkflow-poc-sp-client-id
-  value: $[variables.workflow-poc-sp-client-id]
-- name: varworkflow-poc-sp-tenant-id
-  value: $[variables.workflow-poc-sp-tenant-id]
-- name: varworkflow-poc-sp-secret
-  value: $[variables.workflow-poc-sp-secret] 
+# variables:
+# - group: "workflow-poc-kv001"
+# - name: vartfazstgkey1
+#   value: $[variables.tfazstg-key1]
+# - name: varworkflow-poc-sp-client-id
+#   value: $[variables.workflow-poc-sp-client-id]
+# - name: varworkflow-poc-sp-tenant-id
+#   value: $[variables.workflow-poc-sp-tenant-id]
+# - name: varworkflow-poc-sp-secret
+#   value: $[variables.workflow-poc-sp-secret] 
   
 trigger:
   branches:
