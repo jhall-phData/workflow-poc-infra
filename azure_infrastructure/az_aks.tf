@@ -53,9 +53,3 @@ resource "azurerm_kubernetes_cluster_node_pool" "k8sworkflowpool" {
     Environment = "dev"
   }
 }
-
-resource "azurerm_role_assignment" "k8storageAccountRoleAssignment" {
-  scope                = azurerm_storage_account.eqrdp.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_kubernetes_cluster.eqrdp.identity[0].principal_id
-}
