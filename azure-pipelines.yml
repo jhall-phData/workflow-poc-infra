@@ -98,9 +98,9 @@ stages:
       displayName: Terraform Init
       inputs:
         script: terraform init -backend-config="access_key=$(tfazstg-key1)"
-        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/
+        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/azure_infrastructure/
     - task: CmdLine@2
       displayName: Terraform Apply
       inputs:
         script: terraform apply -auto-approve -input=false tfplan
-        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/
+        workingDirectory: $(System.DefaultWorkingDirectory)/terraform/azure_infrastructure/
