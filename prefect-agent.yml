@@ -23,7 +23,7 @@ spec:
         - -c
         env:
         - name: PREFECT__CLOUD__AGENT__AUTH_TOKEN
-          value: YOUR_SERVICE_ACCOUNT_TOKEN
+          value: nfW68HN5uyUbN1HpFEGVuA
         - name: PREFECT__CLOUD__API
           value: https://api.prefect.io
         - name: NAMESPACE
@@ -48,7 +48,7 @@ spec:
           value: cloud
         - name: PREFECT__CLOUD__AGENT__AGENT_ADDRESS
           value: http://:8080
-        image: prefecthq/prefect:0.15.1-python3.6
+        image: prefecthq/prefect:0.15.1-python3.7
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 2
