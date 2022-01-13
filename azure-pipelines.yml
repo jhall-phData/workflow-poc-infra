@@ -78,6 +78,12 @@ stages:
         KeyVaultName: 'workflow-poc-kv001'
         SecretsFilter: '*'
         RunAsPreJob: false
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: '$(Build.BuildId)-tfplan.tgz'
+        downloadPath: '$(System.ArtifactsDirectory)'
     - task: ExtractFiles@1
       displayName: 'Extract files '
       inputs:
