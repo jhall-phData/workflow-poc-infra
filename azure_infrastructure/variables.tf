@@ -24,7 +24,3 @@ variable "workflow-poc-sp-tenant-id" {
 variable "workflow-poc-sp-secret" {
   description = "service principle secret"
 }
-
-variable "storage-key" {
-  description = "storage key 1"
-}
