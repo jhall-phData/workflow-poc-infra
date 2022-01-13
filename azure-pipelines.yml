@@ -17,13 +17,14 @@ resources:
     type: git
     ref: refs/heads/main
 
+pool:
+  vmImage: ubuntu-18.04
+
 stages:
 - stage: Build
   jobs:
   - job: Job_1
     displayName: Terraform Plan
-    pool:
-      vmImage: ubuntu-18.04
     steps:
     - checkout: self
       clean: true
@@ -69,7 +70,7 @@ stages:
 - stage: Apply
   jobs:
   - job: Job_2
-      displayName: Terraform Apply
+    displayName: Terraform Apply
     steps:
     - task: AzureKeyVault@2
       inputs:
