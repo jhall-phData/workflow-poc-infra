@@ -68,6 +68,7 @@ stages:
         artifactName: $(Build.BuildId)-tfplan.tgz
 
 - stage: Apply
+  dependsOn: Build
   jobs:
   - job: Job_2
     displayName: Terraform Apply
