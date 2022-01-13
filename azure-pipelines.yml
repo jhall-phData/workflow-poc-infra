@@ -27,7 +27,7 @@ jobs:
       azureSubscription: 'workflow-poc-sp'
       KeyVaultName: 'workflow-poc-kv001'
       SecretsFilter: '*'
-      RunAsPreJob: true
+      RunAsPreJob: false
   - task: TerraformInstaller@0
     displayName: Install Terraform 1.1.1
     inputs:
