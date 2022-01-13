@@ -34,7 +34,7 @@ jobs:
     displayName: Install Terraform 1.1.1
     inputs:
       terraformVersion: 1.1.1
-  - task: CmdLine@2
+  - task: Bash@3
     displayName: Terrafirm init
     inputs:
       script: |
@@ -45,12 +45,12 @@ jobs:
       workingDirectory: azure_infrastructure
     env:
       ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
-  - task: CmdLine@2
+  - task: Bash@3
     displayName: Terrafrom validate
     inputs:
       script: terraform validate
       workingDirectory: azure_infrastructure
-  - task: CmdLine@2
+  - task: Bash@3
     displayName: Terrafrom plan
     inputs:
       script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(workflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(workflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(workflow-poc-sp-tenant-id)"
