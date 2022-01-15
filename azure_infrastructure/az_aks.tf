@@ -42,3 +42,10 @@ resource "azurerm_kubernetes_cluster" "eqrdp" {
     }
   }
 }
+
+# add the role to the identity the kubernetes cluster was assigned
+resource "azurerm_role_assignment" "poc_aks_to_acr" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].object_id
+}
