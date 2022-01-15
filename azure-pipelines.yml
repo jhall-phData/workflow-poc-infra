@@ -1,15 +1,12 @@
 # Variable Group 'workflow-poc-kv001' was defined in the Variables tab
-variables:
-  - name: notsecret
-    value: "not so secret"
-  
+
 trigger:
   branches:
     include:
     - main
   paths:
     include:
-    - azure-terraform/
+    - azure-terraform/*
 
 resources:
   repositories:
@@ -18,7 +15,7 @@ resources:
     ref: refs/heads/main
 
 pool:
-  vmImage: ubuntu-18.04
+  vmImage: ubuntu-latest
 
 stages:
 - stage: Build
