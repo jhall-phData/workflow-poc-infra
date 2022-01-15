@@ -48,7 +48,7 @@ spec:
           value: cloud
         - name: PREFECT__CLOUD__AGENT__AGENT_ADDRESS
           value: http://:8080
-        image: workflowpocacr001.azurecr.io/prefect-repo:103
+        image: workflowpocacr001.azurecr.io/prefect-repo:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 2
