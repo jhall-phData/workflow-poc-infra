@@ -8,7 +8,7 @@ resource "azurerm_kubernetes_cluster" "eqrdp" {
   default_node_pool {
     name       = "default"
     node_count = 1
-    vm_size    = "Standard_B2s"
+    vm_size    = "Standard_DS2_v2"
   }
 
   network_profile {
@@ -40,16 +40,5 @@ resource "azurerm_kubernetes_cluster" "eqrdp" {
     oms_agent {
       enabled = false
     }
-  }
-}
-
-resource "azurerm_kubernetes_cluster_node_pool" "k8sworkflowpool" {
-  name                  = "devworkflow"
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.eqrdp.id
-  vm_size               = "Standard_DS2_v2"
-  node_count            = 1
-
-  tags = {
-    Environment = "dev"
   }
 }
