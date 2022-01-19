@@ -49,3 +49,32 @@ resource "azurerm_role_assignment" "poc_aks_to_acr" {
   role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].object_id
 }
+
+
+# add agent pool to key vault!!!
+data "azurerm_key_vault" "poc-kv" {
+  name                = "workflow-poc-kv001"
+  resource_group_name = "DefaultResourceGroup-CUS"
+}
+
+resource "azurerm_key_vault_access_policy" "poc-kv-policy" {
+  key_vault_id = data.azurerm_key_vault.poc-kv.id
+  tenant_id    = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].tenant_id
+  object_id    = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].object_id
+
+  secret_permissions = [
+    "Get",
+    "List",
+  ]
+}
+
+data "azurerm_storage_account" "poc-storage" {
+  name                = "workflowpoc"
+  resource_group_name = "DefaultResourceGroup-CUS"
+}
+
+resource "azurerm_role_assignment" "data-contributor-role" {
+  scope                = data.azurerm_storage_container.poc-storage.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].object_id
+}
