@@ -74,7 +74,7 @@ data "azurerm_storage_account" "poc-storage" {
 }
 
 resource "azurerm_role_assignment" "data-contributor-role" {
-  scope                = data.azurerm_storage_container.poc-storage.id
+  scope                = data.azurerm_storage_account.poc-storage.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].object_id
 }
