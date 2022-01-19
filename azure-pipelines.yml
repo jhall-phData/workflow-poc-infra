@@ -6,7 +6,7 @@ trigger:
     - main
   paths:
     include:
-    - azure-terraform/*
+    - azure_infrastructure/*
 
 resources:
   repositories:

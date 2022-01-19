@@ -59,7 +59,7 @@ data "azurerm_key_vault" "poc-kv" {
 
 resource "azurerm_key_vault_access_policy" "poc-kv-policy" {
   key_vault_id = data.azurerm_key_vault.poc-kv.id
-  tenant_id    = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].tenant_id
+  tenant_id    = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].client_id
   object_id    = azurerm_kubernetes_cluster.eqrdp.kubelet_identity[0].object_id
 
   secret_permissions = [
