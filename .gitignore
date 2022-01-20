@@ -7,3 +7,4 @@ azure_infrastructure/.terraform*
 *.tfstate.*
 
 *.tfvars
+Stg Key
