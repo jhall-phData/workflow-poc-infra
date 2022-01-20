@@ -17,6 +17,9 @@ resources:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  ENVIRONMENT: 'dev' 
+
 stages:
 - stage: Build
   jobs:
@@ -40,17 +43,17 @@ stages:
       inputs:
         script: terraform init -backend-config="access_key=$(tfazstg-key1)"
         workingDirectory: azure_infrastructure
-      env:
-        ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
+      # env:
+      #   ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
     - task: CmdLine@2
       displayName: Terrafrom validate
       inputs:
-        script: terraform validate
+        script: terraform validate -var="env=$(ENVIRONMENT)"
         workingDirectory: azure_infrastructure
     - task: CmdLine@2
       displayName: Terrafrom plan
       inputs:
-        script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(workflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(workflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(workflow-poc-sp-tenant-id)"
+        script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(workflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(workflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(workflow-poc-sp-tenant-id)" -var="env=$(ENVIRONMENT)"
         workingDirectory: azure_infrastructure
     - task: ArchiveFiles@2
       displayName: Archive Terraform Plan
@@ -92,7 +95,7 @@ stages:
               archiveFilePatterns: $(System.ArtifactsDirectory)/$(Build.BuildId)-tfplan.tgz
               destinationFolder: $(System.DefaultWorkingDirectory)/terraform
               cleanDestinationFolder: false
-          - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+          - task: TerraformInstaller@0
             displayName: Install Terraform 1.1.1
             inputs:
               terraformVersion: 1.1.1
