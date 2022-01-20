@@ -10,7 +10,6 @@ variable "az_region" {
 
 variable "env" {
   description = "Environment"
-  default     = "dev"
 }
 
 variable "workflow-poc-sp-client-id" {

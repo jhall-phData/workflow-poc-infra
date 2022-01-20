@@ -52,6 +52,8 @@ stages:
       inputs:
         script: terraform plan -input=false -out=tfplan -var="workflow-poc-sp-client-id=$(workflow-poc-sp-client-id)" -var="workflow-poc-sp-secret=$(workflow-poc-sp-secret)" -var="workflow-poc-sp-tenant-id=$(workflow-poc-sp-tenant-id)" -var="env=$(ENVIRONMENT)"
         workingDirectory: azure_infrastructure
+      env:
+        TF_VAR_env: $(ENVIRONMENT)
     - task: ArchiveFiles@2
       displayName: Archive Terraform Plan
       inputs:
