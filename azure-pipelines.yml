@@ -17,9 +17,6 @@ resources:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  ENVIRONMENT: 'dev' 
-
 stages:
 - stage: Build
   jobs:
