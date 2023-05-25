@@ -40,8 +40,7 @@ stages:
       inputs:
         script: terraform init -backend-config="access_key=$(tfazstg-key1)"
         workingDirectory: azure_infrastructure
-      # env:
-      #   ARM_ACCESS_KEY: "nXQbcLmgaIIXVIvmL5lsV11JUmmpN7Q6VltL+/Q8dh5xC9QjbrM5djrEe91QFqChj1XWYm9ti5T3+2GY1m7UXw=="
+
     - task: CmdLine@2
       displayName: Terrafrom validate
       inputs:
